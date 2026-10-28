@@ -75,3 +75,18 @@
 /* One preparation control; the learning screens continue to fit the viewport. */
 .app-footer{height:46px;gap:10px}.offline-button{min-height:44px;min-width:148px;padding:0 12px;border:1px solid #bccbd3;border-radius:7px;font-size:12px;background:#edf5fa;color:#17476a;white-space:nowrap}.offline-button[data-status=ready]{color:#216342;background:#edf7ef;border-color:#b8d5c0}.offline-button[data-status=error]{color:#a2412e;background:#fff1e9}.offline-button:disabled{opacity:1}.toast{max-width:calc(100vw - 28px);white-space:normal;text-align:center;line-height:1.6}
 @media(max-width:520px){.app-footer{height:46px;font-size:9px}.offline-button{font-size:11px;min-width:142px;padding:0 8px}}
+
+/* Prominent learning navigation on tablets and phones. */
+.header{height:76px;min-height:76px;gap:16px}
+.brand-title{font-family:'Noto Sans JP','Yu Gothic',sans-serif;font-size:24px;font-weight:800;letter-spacing:.025em;white-space:nowrap;color:#17324e}
+.header nav{display:flex;align-items:center;gap:8px;padding:5px;background:#e4eef5;border:1px solid #b9cddd;border-radius:14px;box-shadow:0 2px 7px #17324e0d}
+.nav-item{justify-content:center;min-width:108px;min-height:48px;padding:0 19px;border:1px solid #a9c2d2;border-radius:9px;background:#fff;color:#244d68;font-size:17px;font-weight:700;gap:9px;box-shadow:0 2px 0 #17324e0c}
+.nav-item svg{width:21px;height:21px;stroke-width:1.8}
+.nav-item:hover{background:#f2f8fc;border-color:#5f8faa;color:#17324e}
+.nav-item.active{background:#174b6b;border-color:#174b6b;color:#fff;font-weight:800;box-shadow:0 3px 8px #174b6b26,inset 0 -3px 0 #e7bd66}
+.nav-item.active:hover{background:#123d58;border-color:#123d58;color:#fff}
+.nav-item:focus-visible{outline:3px solid #b67513;outline-offset:3px}
+.study-progress .mnemonic-credit{font-size:8px;font-weight:400;color:#737f88;letter-spacing:0;text-decoration:none;padding:0 3px}
+@media(max-width:900px){.brand-title{font-size:21px}.header{gap:10px}.header nav{gap:6px;padding:4px}.nav-item{min-width:88px;padding:0 13px;font-size:16px}}
+@media(max-width:760px){.brand-title{font-size:19px}.header nav{gap:5px}.nav-item{min-width:0;padding:0 11px;font-size:15px;gap:7px}.nav-item svg{width:19px;height:19px}}
+@media(max-width:620px){.header{height:112px;min-height:112px;flex-direction:column;justify-content:center;gap:8px}.brand-title{font-size:20px}.brand-sub{display:none}.brand-mark{display:none}.header nav{width:100%;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:6px;padding:4px}.nav-item{width:100%;min-width:0;min-height:46px;padding:0 7px;font-size:15px;gap:7px}.nav-item svg{width:19px;height:19px}}
