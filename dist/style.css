@@ -90,3 +90,6 @@
 @media(max-width:900px){.brand-title{font-size:21px}.header{gap:10px}.header nav{gap:6px;padding:4px}.nav-item{min-width:88px;padding:0 13px;font-size:16px}}
 @media(max-width:760px){.brand-title{font-size:19px}.header nav{gap:5px}.nav-item{min-width:0;padding:0 11px;font-size:15px;gap:7px}.nav-item svg{width:19px;height:19px}}
 @media(max-width:620px){.header{height:112px;min-height:112px;flex-direction:column;justify-content:center;gap:8px}.brand-title{font-size:20px}.brand-sub{display:none}.brand-mark{display:none}.header nav{width:100%;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:6px;padding:4px}.nav-item{width:100%;min-width:0;min-height:46px;padding:0 7px;font-size:15px;gap:7px}.nav-item svg{width:19px;height:19px}}
+
+/* Historical terms keep their wording and stand out from the numeric cue. */
+.mnemonic-text .historical-term{font-weight:800;color:#173f56;text-decoration:underline;text-decoration-color:#b4c8cf;text-decoration-thickness:2px;text-underline-offset:.15em}
