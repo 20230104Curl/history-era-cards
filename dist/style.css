@@ -93,3 +93,12 @@
 
 /* Historical terms keep their wording and stand out from the numeric cue. */
 .mnemonic-text .historical-term{font-weight:800;color:#173f56;text-decoration:underline;text-decoration-color:#b4c8cf;text-decoration-thickness:2px;text-underline-offset:.15em}
+
+/* One brief definition below the event; the question stays visually dominant. */
+.event-copy{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:clamp(12px,2.2vh,24px);width:100%;min-width:0;max-height:100%;overflow-y:auto;overscroll-behavior:contain}
+.event-copy .flash-event{flex:none}
+.event-glossary{display:flex;flex-direction:column;gap:5px;flex:none;max-width:680px;width:100%;padding:12px 16px;border-top:1px solid #d8cbb1;text-align:left;font-size:clamp(13px,1.8vh,17px);line-height:1.65;color:#53615a;overflow-wrap:anywhere}
+.event-glossary .glossary-label{font-size:10px;letter-spacing:.08em;color:#7a7768}
+.event-glossary strong{font-weight:700;color:#344a44}
+@media(max-height:650px){.event-copy{gap:8px}.event-copy .flash-event{font-size:clamp(18px,3.4vh,25px);line-height:1.45}.event-glossary{padding:7px 10px;font-size:13px;line-height:1.45;gap:3px}}
+@media(max-width:520px){.event-glossary{padding:8px 10px;font-size:13px;line-height:1.5}.event-copy{gap:10px}}

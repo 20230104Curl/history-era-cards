@@ -4,13 +4,13 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 function setup(saved=null){
  const storage=new Map(saved?[['history-era-cards-v1',saved]]:[]),buttons=[{},{}];
- const element=()=>({setAttribute(){},remove(){},classList:{toggle(){}},querySelector:()=>({setAttribute(){}})});
+ const element=()=>({setAttribute(){},removeAttribute(){},remove(){},classList:{toggle(){}},querySelector:()=>({setAttribute(){}})});
  const app={innerHTML:'',addEventListener(){},querySelector:()=>null},card=element();
  const context=vm.createContext({console,Image:class{},setTimeout:()=>0,clearTimeout(){},requestAnimationFrame:()=>0,cancelAnimationFrame(){},
   localStorage:{getItem:key=>storage.get(key)||null,setItem:(key,value)=>storage.set(key,value)},
   document:{activeElement:{tagName:'BODY'},querySelector:selector=>selector==='#app'?app:selector==='#flashcard'?card:null,querySelectorAll:()=>buttons,createElement:element,body:{append(){}},documentElement:{style:{setProperty(){}}},addEventListener(){}},
   window:{innerHeight:768,addEventListener(){}},prepareOffline:async()=>{},paintOffline(){}});
- const modules=['data','mnemonics','illustrations','timeline','rewards','engine','celebration','study','app'];
+ const modules=['data','mnemonics','illustrations','timeline','rewards','engine','celebration','study','glossary','app'];
  vm.runInContext(modules.map(name=>fs.readFileSync(new URL('../dist/'+name+'.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'').replace(/^export /gm,'')).join('\n'),context);
  return {run:code=>vm.runInContext(code,context),storage,app,buttons};
 }
@@ -37,4 +37,15 @@ test('timeline opens the mnemonic; study navigation, selection, and region chang
 test('remembered-card filtering advances without skipping the remaining cards',()=>{
  const h=setup();h.run('action("view","study");state.filter="unlearned";action("flip");action("remember","known")');
  assert.equal(h.run('visibleDeck()[state.index].id'),'j593');assert.equal(h.run('state.flipped'),true);
+});
+test('only selected event faces show one-sentence glossary notes and answer faces hide descriptions',()=>{
+ const h=setup();h.run('action("open-card","j593");action("view","study")');
+ assert.match(h.app.innerHTML,/class="event-glossary"/);
+ assert.match(h.app.innerHTML,/天皇が幼いときなどに/);
+ assert.match(h.app.innerHTML,/aria-describedby="event-glossary"/);
+ h.run('action("flip");render()');
+ assert.doesNotMatch(h.app.innerHTML.match(/id="flashcard"[^>]+/)[0],/aria-describedby/);
+ assert.match(h.app.innerHTML,/class="card-face back" aria-hidden="true"/);
+ h.run('action("open-card","j710");action("view","study")');
+ assert.doesNotMatch(h.app.innerHTML,/class="event-glossary"|aria-describedby="event-glossary"/);
 });
