@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const read=name=>fs.readFileSync(path.join(root,'dist',name),'utf8');
+const images=Object.fromEntries(fs.readdirSync(path.join(root,'dist/art')).filter(n=>n.endsWith('.webp')).map(n=>[n.slice(0,-5),'data:image/webp;base64,'+fs.readFileSync(path.join(root,'dist/art',n)).toString('base64')]));
+let script=['data','units','engine','study','glossary','app'].map(n=>read(n+'.js').replace(/^import .*;\r?\n/gm,'').replace(/^export /gm,'')).join('\n');
+script=script.replace('src="./art/\'+c.id+\'.webp"','src="\'+PACKAGED_IMAGES[c.id]+\'"');
+const html='<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>高校受験 年代順トレーニング｜全７単元</title><style>'+read('style.css')+'</style></head><body><div id="app"></div><script>const PACKAGED_IMAGES='+JSON.stringify(images)+';\n'+script.replaceAll('</script','<\\/script')+'</script></body></html>';
+fs.mkdirSync(path.join(root,'release'),{recursive:true});
+fs.writeFileSync(path.join(root,'release/History_Order_All7.html'),html);
+console.log('Built standalone HTML with '+Object.keys(images).length+' images.');
