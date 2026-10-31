@@ -21,7 +21,7 @@ const GOAL=5,QUIZ_SIZE=5;
 const createQuiz=()=>engine.createQuiz(),submitQuiz=q=>engine.submitQuiz(q),nextQuiz=q=>engine.nextQuiz(q);
 function selectedUnit(){return UNITS.find(u=>u.id===unitId);}
 function selectUnit(id){if(!UNITS.some(u=>u.id===id))return;unitId=id;CARDS=cardsForUnit(id);engine=makeEngine(CARDS);record=records[id];byId=new Map(CARDS.map(c=>[c.id,c]));state.page=0;state.index=0;state.flipped=true;state.message='';state.view=state.returnView||'timeline';if(state.view==='quiz'&&!isUnlocked(id,records))state.view='timeline';render();}
-const state={returnView:'timeline',view:'timeline',page:0,index:0,flipped:true,message:'',celebrating:false,transition:false,failedQuiz:null,drag:null};
+const state={returnView:'timeline',view:'units',page:0,index:0,flipped:true,message:'',celebrating:false,transition:false,failedQuiz:null,drag:null};
 const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function save(){try{localStorage.setItem(KEY,JSON.stringify(records));}catch{canSave=false;}}
 function progressDots(){return '<div class="progress-dots" aria-label="'+record.quiz.solved+'問連続正解">'+Array.from({length:GOAL},(_,i)=>'<span class="progress-dot '+(i<record.quiz.solved?'filled':'')+'">'+(i<record.quiz.solved?'✓':i+1)+'</span>').join('')+'</div>';}
